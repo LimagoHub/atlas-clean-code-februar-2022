@@ -40,7 +40,7 @@ private:
         std::cout << "Computer nimmt " << turn << " Steine." << std::endl;
         stoneCount -= turn;
     }
-    void execute_turns() {
+    void play_next_round() {
         human_turn();
         computer_turn();
     }
@@ -49,7 +49,7 @@ public:
 
     void play() noexcept override {
         while(! game_over) {
-            execute_turns();
+            play_next_round();
         }
     }
 
