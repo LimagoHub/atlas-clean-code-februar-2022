@@ -21,17 +21,27 @@ class abstract_game: public game {
 
     void play_next_round() {
         for(auto  player : get_players()) {
-            current_player = player;
-            execute_players_turn();
+            play_single_turn(player);
         }
     }
 
+    void play_single_turn(game_player<BOARD,TURN> * player) {
+        current_player = player;
+        execute_players_turn();
+    }
+
     void execute_players_turn() { // Integration
-        if(is_game_over()) return;
+        if(init_turn()) return;
         invoke_players_turn();
         terminate_turn();
     }
 
+    bool init_turn() const{
+        if(is_game_over())
+            return true;
+        prepare();
+        return false;
+    }
     void invoke_players_turn()  {
 
         do {
@@ -44,9 +54,8 @@ class abstract_game: public game {
         check_losing();
     }
     bool players_turn_is_invalid() const {
-        if (is_turn_valid()) {
+        if (is_turn_valid())
             return false;
-        }
         print(ERROR_MESSAGE);
         return true;
     }
@@ -72,6 +81,11 @@ class abstract_game: public game {
         return result;
     }
 protected:
+
+    virtual void prepare() const{
+        // OK
+    }
+
     game_player<BOARD, TURN> *getCurrentPlayer() const {
         return current_player;
     }

@@ -20,6 +20,11 @@ protected:
     bool is_game_over() const noexcept override{ // Operation
         return getBoard() <= 0 || get_players().empty();
     }
+
+    void prepare() const override {
+        std::cout << getCurrentPlayer()->get_name() << " ist am Zug." << std::endl;
+    }
+
 public:
     take_game_impl()   {
         setBoard(23);

@@ -15,6 +15,8 @@ public:
         std::cin >> result;
         return result;
     }
+
+
 };
 
 
